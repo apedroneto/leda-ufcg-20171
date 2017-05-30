@@ -1,5 +1,6 @@
 package sorting.test;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 
 import org.junit.Assert;
@@ -9,6 +10,7 @@ import org.junit.Test;
 import sorting.AbstractSorting;
 import sorting.divideAndConquer.MergeSort;
 import sorting.divideAndConquer.QuickSort;
+import sorting.divideAndConquer.threeWayQuicksort.ThreeWayQuickSort;
 
 public class StudentSortingTest {
 
@@ -17,6 +19,8 @@ public class StudentSortingTest {
 	private Integer[] vetorVazio = {};
 	private Integer[] vetorValoresRepetidos;
 	private Integer[] vetorValoresIguais;
+
+	private Integer[] vetorRange;
 
 	public AbstractSorting<Integer> implementation;
 
@@ -28,6 +32,7 @@ public class StudentSortingTest {
 				11, 18, 36 });
 		populaVetorRepetido(new Integer[] { 4, 9, 3, 4, 0, 5, 1, 4 });
 		populaVetorIgual(new Integer[] { 6, 6, 6, 6, 6, 6 });
+		populaVetorRange(new Integer[] {1, 2, 54, 6, 1, 2, 0, 3, 6, 7, 8});
 
 		getImplementation();
 	}
@@ -40,7 +45,11 @@ public class StudentSortingTest {
 	private void getImplementation() {
 		// TODO O aluno deve instanciar sua implementação abaixo ao invés de
 		// null
-		this.implementation = new QuickSort<>();
+		this.implementation = new ThreeWayQuickSort<>();
+	}
+
+	public void populaVetorRange(Integer[] arrayPadrao) {
+		this.vetorRange = Arrays.copyOf(arrayPadrao, arrayPadrao.length);
 	}
 
 	public void populaVetorTamanhoPar(Integer[] arrayPadrao) {
@@ -72,6 +81,19 @@ public class StudentSortingTest {
 		Assert.assertArrayEquals(copy1, array);
 	}
 
+	public void genericRangeTest(Integer[] array, int start, int end){
+		Integer[] original = Arrays.copyOf(array, array.length);
+		implementation.sort(array, start, end - 1);
+		Arrays.sort(original, start, end);
+		assertRangeEquals(original, array, start, end);
+	}
+
+	private void assertRangeEquals(Integer[] original, Integer[] array, int start, int end) {
+		Integer[] copy1 = Arrays.copyOfRange(original, start, end + 1);
+		Integer[] copy2 = Arrays.copyOfRange(array, start, end + 1);
+		Assert.assertArrayEquals(copy1, copy2);
+	}
+
 	@Test
 	public void testSort01() {
 		genericTest(vetorTamPar);
@@ -95,6 +117,16 @@ public class StudentSortingTest {
 	@Test
 	public void testSort05() {
 		genericTest(vetorValoresRepetidos);
+	}
+
+	@Test
+	public void testSort06() {
+		genericRangeTest(vetorRange, 0, 2);
+	}
+
+	@Test
+	public void testSort07() {
+		genericRangeTest(vetorRange, 0, vetorRange.length);
 	}
 
 	// MÉTODOS QUE OS ALUNOS PODEM CRIAR

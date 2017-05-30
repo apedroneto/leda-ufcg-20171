@@ -1,9 +1,43 @@
 package sorting.divideAndConquer.threeWayQuicksort;
 
 import sorting.AbstractSorting;
+import util.Util;
 
 public class ThreeWayQuickSort<T extends Comparable<T>> extends
 		AbstractSorting<T> {
+
+	private int partition(T[] array, int leftIndex, int rightIndex) {
+		int wall = leftIndex;
+		int current = leftIndex;
+
+		//This implementation considers the rightmost index the starting pivot of the array.
+		while (current != rightIndex) {
+			if (array[current].compareTo(array[rightIndex]) < 0) {
+				Util.swap(array, wall, current);
+				wall++;
+			}
+			current++;
+		}
+
+		Util.swap(array, rightIndex, wall);
+
+		int leftAuxIdx = wall - 1;
+		int rightAuxIdx = wall + 1;
+		for(int i = leftIndex; i <= rightIndex; i++){
+			if(i < wall && array[i] == array[wall]){
+				Util.swap(array, i, leftAuxIdx);
+				leftAuxIdx--;
+			}
+
+			if(i > wall && array[i] == array[wall]){
+				Util.swap(array, i, rightAuxIdx);
+				rightAuxIdx++;
+			}
+		}
+
+		//Once the algorithm is finished, wall is our new pivot.
+		return wall;
+	}
 
 	/**
 	 * No algoritmo de quicksort, selecionamos um elemento como pivot,
@@ -25,8 +59,14 @@ public class ThreeWayQuickSort<T extends Comparable<T>> extends
 	 **/
 	@Override
 	public void sort(T[] array, int leftIndex, int rightIndex) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		if (array == null) {
+			throw new UnsupportedOperationException("The array must not be null.");
+		}
+		if (leftIndex < rightIndex) {
+			int pivot = partition(array, leftIndex, rightIndex);
+			sort(array, leftIndex, pivot - 1);
+			sort(array, pivot + 1, rightIndex);
+		}
 	}
 
 }

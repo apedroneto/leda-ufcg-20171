@@ -13,28 +13,34 @@ import util.Util;
  */
 public class QuickSort<T extends Comparable<T>> extends AbstractSorting<T> {
 
-	private int partition(T[] array, int leftIndex, int rightIndex) {
-		int wall = leftIndex;
-		int pivot = rightIndex;
-		int current = rightIndex;
+    private int partition(T[] array, int leftIndex, int rightIndex) {
+        int wall = leftIndex;
+        int current = leftIndex;
 
-		while (current != pivot) {
-			if (array[pivot].compareTo(array[current]) < 0) {
-				Util.swap(array, wall, current);
-				wall++;
-			}
-			current++;
-		}
+        //This implementation considers the rightmost index the starting pivot of the array.
+        while (current != rightIndex) {
+            if (array[current].compareTo(array[rightIndex]) < 0) {
+                Util.swap(array, wall, current);
+                wall++;
+            }
+            current++;
+        }
 
-		return wall;
-	}
+        Util.swap(array, rightIndex, wall);
 
-	@Override
-	public void sort(T[] array, int leftIndex, int rightIndex) {
-		if (leftIndex < rightIndex) {
-			int pivot = partition(array, leftIndex, rightIndex);
-			sort(array, leftIndex, pivot);
-			sort(array, pivot + 1, rightIndex);
-		}
-	}
+        //Once the algorithm is finished, wall is our new pivot.
+        return wall;
+    }
+
+    @Override
+    public void sort(T[] array, int leftIndex, int rightIndex) {
+        if (array == null) {
+            throw new UnsupportedOperationException("The array must not be null.");
+        }
+        if (leftIndex < rightIndex) {
+            int pivot = partition(array, leftIndex, rightIndex);
+            sort(array, leftIndex, pivot - 1);
+            sort(array, pivot + 1, rightIndex);
+        }
+    }
 }
