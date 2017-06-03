@@ -1,4 +1,5 @@
 RemoteSystemsTempFiles
+*/.idea/
 .metadata
 .metadata
 bin/
