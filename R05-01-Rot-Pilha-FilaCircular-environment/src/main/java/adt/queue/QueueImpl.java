@@ -13,6 +13,9 @@ public class QueueImpl<T> implements Queue<T> {
 
 	@Override
 	public T head() {
+		if(isEmpty()){
+			return null;
+		}
 		return array[0];
 	}
 
