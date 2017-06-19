@@ -7,9 +7,20 @@ public class DoubleLinkedListImpl<T> extends SingleLinkedListImpl<T> implements
 	
 	public DoubleLinkedListImpl() {
 		this.last = new DoubleLinkedListNode<T>();
+		last.next = new DoubleLinkedListNode<T>();
 		setHead(last);
 	}
 
+	@Override
+	public void insert(T element){
+		DoubleLinkedListNode<T> newNode = new DoubleLinkedListNode<T>(element, (DoubleLinkedListNode<T>)last.next, last);
+		last.next = newNode;
+		setLast(newNode);
+		if(head.isNIL()){
+			setHead(newNode);
+		}
+	}
+	
 	@Override
 	public void insertFirst(T element) {
 		DoubleLinkedListNode<T> newNode = new DoubleLinkedListNode<T>(element, getHead(), new DoubleLinkedListNode<T>());

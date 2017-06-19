@@ -11,7 +11,6 @@ public class StudentLinkedListTest {
 
 	@Before
 	public void setUp() throws Exception {
-
 		getImplementations();
 
 		// Lista com 3 elementos.

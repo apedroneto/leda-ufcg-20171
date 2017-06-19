@@ -12,7 +12,7 @@ public class StudentDoubleLinkedListTest extends StudentLinkedListTest {
 
 	@Before
 	public void setUp() throws Exception {
-
+		super.setUp();
 		getImplementations();
 
 		// Lista com 3 elementos.
