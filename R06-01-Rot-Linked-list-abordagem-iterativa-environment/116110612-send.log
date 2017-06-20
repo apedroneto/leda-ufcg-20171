@@ -7,3 +7,23 @@
   <level>FINE</level>
   <message>File 116110612-RERISSON DANIEL COSTA SILVA MATOS.zip was received. It was sent by RERISSON DANIEL COSTA SILVA MATOS from IP 150.165.54.119</message>
 </record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2017-06-19T20:49:55.361-0300</date>
+  <logger>RERISSON DANIEL COSTA SILVA MATOS</logger>
+  <level>FINE</level>
+  <message>File 116110612-RERISSON DANIEL COSTA SILVA MATOS.zip was received. It was sent by RERISSON DANIEL COSTA SILVA MATOS from IP 127.0.1.1</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2017-06-19T20:59:31.326-0300</date>
+  <logger>RERISSON DANIEL COSTA SILVA MATOS</logger>
+  <level>FINE</level>
+  <message>File 116110612-RERISSON DANIEL COSTA SILVA MATOS.zip was received. It was sent by RERISSON DANIEL COSTA SILVA MATOS from IP 127.0.1.1</message>
+</record>

@@ -45,7 +45,7 @@ public class StudentSortingTest {
 	private void getImplementation() {
 		// TODO O aluno deve instanciar sua implementação abaixo ao invés de
 		// null
-		this.implementation = new ThreeWayQuickSort<>();
+		this.implementation = new QuickSort<>();
 	}
 
 	public void populaVetorRange(Integer[] arrayPadrao) {

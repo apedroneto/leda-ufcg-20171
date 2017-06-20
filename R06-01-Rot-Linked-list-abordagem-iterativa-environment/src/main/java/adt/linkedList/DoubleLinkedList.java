@@ -26,4 +26,9 @@ public interface DoubleLinkedList<T> extends LinkedList<T> {
 	 * updated.
 	 */
 	public void removeLast();
+
+	/**
+	 * @return The last element of the list.
+	 */
+	public T getLastElement();
 }

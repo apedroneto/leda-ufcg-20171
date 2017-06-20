@@ -15,19 +15,16 @@ public class QuickSort<T extends Comparable<T>> extends AbstractSorting<T> {
 
     private int partition(T[] array, int leftIndex, int rightIndex) {
         int wall = leftIndex;
-        int current = leftIndex;
-
-        //This implementation considers the rightmost index the starting pivot of the array.
-        while (current != rightIndex) {
-            if (array[current].compareTo(array[rightIndex]) < 0) {
-                Util.swap(array, wall, current);
+        int currrent = leftIndex;
+        while(currrent <= rightIndex){
+            if(array[currrent].compareTo(array[rightIndex]) < 0){
+                Util.swap(array, wall, currrent);
                 wall++;
             }
-            current++;
+            currrent++;
         }
 
         Util.swap(array, rightIndex, wall);
-
         //Once the algorithm is finished, wall is our new pivot.
         return wall;
     }
