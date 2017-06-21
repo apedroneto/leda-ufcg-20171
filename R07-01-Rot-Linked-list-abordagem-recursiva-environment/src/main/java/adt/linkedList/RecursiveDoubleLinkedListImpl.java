@@ -13,7 +13,7 @@ public class RecursiveDoubleLinkedListImpl<T> extends RecursiveSingleLinkedListI
 		super(data, next);
 		this.previous = previous;
 	}
-
+	
 	@Override
 	public void insert(T element) {
 		if (element != null) {
@@ -65,6 +65,7 @@ public class RecursiveDoubleLinkedListImpl<T> extends RecursiveSingleLinkedListI
 				newNode.previous = this;
 				((RecursiveDoubleLinkedListImpl<T>) newNode.next).previous = newNode;
 				this.data = element;
+				this.next = newNode;
 			}
 		}
 	}
