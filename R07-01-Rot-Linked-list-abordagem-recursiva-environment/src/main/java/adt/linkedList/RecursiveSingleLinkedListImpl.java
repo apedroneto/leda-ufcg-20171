@@ -13,8 +13,7 @@ public class RecursiveSingleLinkedListImpl<T> implements LinkedList<T> {
 
 	}
 
-	public RecursiveSingleLinkedListImpl(T data,
-			RecursiveSingleLinkedListImpl<T> next) {
+	public RecursiveSingleLinkedListImpl(T data, RecursiveSingleLinkedListImpl<T> next) {
 		this.data = data;
 		this.next = next;
 	}
@@ -27,63 +26,68 @@ public class RecursiveSingleLinkedListImpl<T> implements LinkedList<T> {
 	@Override
 	public int size() {
 		int result;
-		if(this.isNil()){
+		if (this.isNil()) {
 			result = 0;
-		}else{
+		} else {
 			result = 1 + next.size();
 		}
-		
+
 		return result;
 	}
 
 	@Override
 	public T search(T element) {
 		T result = null;
-		if(!this.isNil()){
-			if(this.data.equals(element)){
-				result = data;
-			}else{
-				result = next.search(element);
+		if (element != null) {
+			if (!this.isNil()) {
+				if (this.data.equals(element)) {
+					result = data;
+				} else {
+					result = next.search(element);
+				}
 			}
 		}
-		
 		return result;
 	}
 
 	@Override
 	public void insert(T element) {
-		if(this.isNil()){
-			this.data = element;
-			this.next = new RecursiveSingleLinkedListImpl<>();
-		}else{
-			this.next.insert(element);
+		if (element != null) {
+			if (this.isNil()) {
+				this.data = element;
+				this.next = new RecursiveSingleLinkedListImpl<>();
+			} else {
+				this.next.insert(element);
+			}
 		}
 	}
 
 	@Override
 	public void remove(T element) {
-		if(!this.isEmpty()){
-			if(this.data.equals(element)){
-				this.data = this.next.data;
-				this.next = this.next.next;
-			}else{
-				this.next.remove(element);
+		if (element != null) {
+			if (!this.isEmpty()) {
+				if (this.data.equals(element)) {
+					this.data = this.next.data;
+					this.next = this.next.next;
+				} else {
+					this.next.remove(element);
+				}
 			}
 		}
 	}
 
 	@Override
 	public T[] toArray() {
-		T[] result = (T[])new Object[0];
-		if(!this.isEmpty()){
+		T[] result = (T[]) new Object[0];
+		if (!this.isEmpty()) {
 			List<T> list = new ArrayList<T>();
 			list.add(this.data);
 			list.addAll(Arrays.asList(this.next.toArray()));
-			
-			T[] newArray = (T[])new Object[list.size()];
+
+			T[] newArray = (T[]) new Object[list.size()];
 			result = list.toArray(newArray);
 		}
-		
+
 		return result;
 	}
 
@@ -102,8 +106,8 @@ public class RecursiveSingleLinkedListImpl<T> implements LinkedList<T> {
 	public void setNext(RecursiveSingleLinkedListImpl<T> next) {
 		this.next = next;
 	}
-	
-	private boolean isNil(){
+
+	private boolean isNil() {
 		return this.data == null;
 	}
 
