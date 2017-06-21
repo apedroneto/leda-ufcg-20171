@@ -79,6 +79,7 @@ public class RecursiveSingleLinkedListImpl<T> implements LinkedList<T> {
 			List<T> list = new ArrayList<T>();
 			list.add(this.data);
 			list.addAll(Arrays.asList(this.next.toArray()));
+			
 			T[] newArray = (T[])new Object[list.size()];
 			result = list.toArray(newArray);
 		}
