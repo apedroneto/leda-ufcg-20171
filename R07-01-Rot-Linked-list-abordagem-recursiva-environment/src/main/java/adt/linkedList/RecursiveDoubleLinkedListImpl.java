@@ -24,7 +24,7 @@ public class RecursiveDoubleLinkedListImpl<T> extends RecursiveSingleLinkedListI
 					this.previous = new RecursiveDoubleLinkedListImpl<>();
 				}
 			} else {
-				((RecursiveDoubleLinkedListImpl<T>) this.next).insert(element);
+				this.next.insert(element);
 			}
 		}
 	}
@@ -35,9 +35,11 @@ public class RecursiveDoubleLinkedListImpl<T> extends RecursiveSingleLinkedListI
 			if (!this.isEmpty()) {
 				if (this.data.equals(element)) {
 					if (this.next.isEmpty() && this.previous.isEmpty()) {
+						//Último elemento da lista.
 						this.data = null;
 						this.next = this.previous = null;
 					} else {
+						//Caso típico.
 						data = this.next.data;
 						this.next = this.next.next;
 						if (this.next != null) {
@@ -45,7 +47,7 @@ public class RecursiveDoubleLinkedListImpl<T> extends RecursiveSingleLinkedListI
 						}
 					}
 				} else {
-					((RecursiveDoubleLinkedListImpl<T>) this.next).insert(element);
+					this.next.remove(element);
 				}
 			}
 		}
@@ -74,15 +76,20 @@ public class RecursiveDoubleLinkedListImpl<T> extends RecursiveSingleLinkedListI
 	public void removeFirst() {
 		if (!this.isEmpty()) {
 			this.data = next.data;
-			((RecursiveDoubleLinkedListImpl<T>)this.next.next).previous = this;
-			this.next = this.next.next;
+			if(!this.next.isEmpty()) {
+				((RecursiveDoubleLinkedListImpl<T>) this.next.next).previous = this;
+				this.next = this.next.next;
+			}
 		}
 	}
 
 	@Override
 	public void removeLast() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		if(this.next.isEmpty()){
+			this.data = null;
+		}else{
+			((RecursiveDoubleLinkedListImpl<T>)this.next).removeLast();
+		}
 	}
 
 	public RecursiveDoubleLinkedListImpl<T> getPrevious() {
