@@ -15,24 +15,22 @@ public class HashtableOpenAddressLinearProbingImpl<T extends Storable> extends
 
     @Override
     public void insert(T element) {
-        if (element != null) {
-            boolean inserted = false;
-            boolean isDuplicate = false;
-            for (int i = 0; i < this.table.length && !inserted && !isDuplicate; i++) {
-                int hash = ((HashFunctionLinearProbing) getHashFunction()).hash(element, i);
+        if(isFull()){
+            throw new HashtableOverflowException();
+        }
+        if (element != null && indexOf(element) == -1) {
+            boolean isInserted = false;
+            for (int probe = 0; probe < this.table.length && !isInserted; probe++) {
+                int hash = ((HashFunctionLinearProbing) getHashFunction()).hash(element, probe);
                 if (this.table[hash] == null || this.deletedElement.equals(this.table[hash])) {
                     this.table[hash] = element;
-                    inserted = true;
-                    COLLISIONS += i;
-                } else if (this.table[hash].equals(element)) {
-                    isDuplicate = true;
+                    isInserted = true;
+                    COLLISIONS += probe;
                 }
             }
 
-            if (inserted) {
+            if (isInserted) {
                 this.elements++;
-            } else if (!isDuplicate) {
-                throw new HashtableOverflowException();
             }
         }
     }
@@ -40,7 +38,7 @@ public class HashtableOpenAddressLinearProbingImpl<T extends Storable> extends
     @Override
     public void remove(T element) {
         int idx = indexOf(element);
-        if(idx != -1){
+        if (idx != -1) {
             this.table[idx] = deletedElement;
             this.elements--;
         }
@@ -62,15 +60,15 @@ public class HashtableOpenAddressLinearProbingImpl<T extends Storable> extends
         int result = -1;
 
         if (element != null) {
-            int i = 0;
+            int probe = 0;
             int hash;
             do {
-                hash = ((HashFunctionLinearProbing) getHashFunction()).hash(element, i);
+                hash = ((HashFunctionLinearProbing) getHashFunction()).hash(element, probe);
                 if (this.table[hash] != null && this.table[hash].equals(element)) {
                     result = hash;
                 }
-                i++;
-            } while (this.table[hash] != null && !this.table[hash].equals(element) && i != this.table.length);
+                probe++;
+            } while (this.table[hash] != null && !this.table[hash].equals(element) && probe != this.table.length);
         }
 
         return result;

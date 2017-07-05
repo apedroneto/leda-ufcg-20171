@@ -44,7 +44,7 @@ public class HashTableOpenAddressLinearProbing {
 
     @Test
     public void testInsert() {
-        AbstractHashtableOpenAddress<HashtableElement> impl = getImpl(3);
+        AbstractHashtableOpenAddress<HashtableElement> impl = getImpl(4);
         impl.insert(getElement(3));
         Assert.assertEquals(1, impl.size());
         impl.insert(getElement(5));
@@ -61,6 +61,6 @@ public class HashTableOpenAddressLinearProbing {
     }
 
     public AbstractHashtableOpenAddress<HashtableElement> getImpl(int size){
-        return new HashtableOpenAddressLinearProbingImpl<>(size, HashFunctionClosedAddressMethod.DIVISION);
+        return new HashtableOpenAddressQuadraticProbingImpl<>(size, HashFunctionClosedAddressMethod.DIVISION, 5, 6);
     }
 }
