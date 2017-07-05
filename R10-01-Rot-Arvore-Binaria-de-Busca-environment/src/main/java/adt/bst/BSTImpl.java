@@ -1,5 +1,9 @@
 package adt.bst;
 
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+
 public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
     protected BSTNode<T> root;
@@ -99,16 +103,55 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
         throw new UnsupportedOperationException("Not implemented yet!");
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public T[] preOrder() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Not implemented yet!");
+        return (T[]) preOrder(root).toArray();
+    }
+
+    private List<T> preOrder(BSTNode<T> node){
+        List<T> result = new LinkedList<>();
+        if(!node.isEmpty()) {
+            if (node.isLeaf()) {
+                result.add(node.getData());
+            } else if (!node.isEmpty()) {
+                result.addAll(preOrder((BSTNode<T>) node.getLeft()));
+                result.addAll(preOrder((BSTNode<T>) node.getRight()));
+                result.add(node.getData());
+            }
+        }
+
+        return result;
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public T[] order() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Not implemented yet!");
+        Comparable[] result1 = makeArrayFromList(order(root));
+        return (T[]) result1;
+    }
+
+    private Comparable[] makeArrayFromList(List<T> result) {
+        Comparable[] result1 = new Comparable[result.size()];
+        for(int i = 0; i < result.size(); i++){
+            result1[i] = result.get(i);
+        }
+        return result1;
+    }
+
+    private List<T> order(BSTNode<T> node){
+        List<T> result = new LinkedList<>();
+        if(!node.isEmpty()) {
+            if (node.isLeaf()) {
+                result.add(node.getData());
+            } else if (!node.isEmpty()) {
+                result.addAll(order((BSTNode<T>) node.getLeft()));
+                result.addAll(order((BSTNode<T>) node.getRight()));
+                result.add(node.getData());
+            }
+        }
+
+        return result;
     }
 
     @Override
