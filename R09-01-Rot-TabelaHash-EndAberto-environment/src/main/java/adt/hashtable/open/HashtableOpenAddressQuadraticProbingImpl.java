@@ -15,7 +15,7 @@ public class HashtableOpenAddressQuadraticProbingImpl<T extends Storable>
 
 	@Override
 	public void insert(T element) {
-
+		throw new UnsupportedOperationException("Not implemented yet!");
 	}
 
 	@Override
