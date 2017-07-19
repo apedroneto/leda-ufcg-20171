@@ -98,7 +98,6 @@ public class StudentMaxHeapTest {
 		boolean isHeap = true;
 
 		Comparable<Integer>[] original = heap.toArray();
-		System.out.println(Arrays.toString(original));
 
 		Arrays.sort(expected);
 		Arrays.sort(original);

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="4" failures="0" name="adt.heap.StudentMaxHeapTest" time="0" errors="0" skipped="0">
+<testsuite tests="1" failures="1" name="adt.heap.HeapTest" time="0.013" errors="0" skipped="0">
   <properties>
     <property name="idea.version" value="2017.1.4"/>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
@@ -60,8 +60,52 @@
     <property name="sun.desktop" value="gnome"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="adt.heap.StudentMaxHeapTest" name="testBuild" time="0"/>
-  <testcase classname="adt.heap.StudentMaxHeapTest" name="testSort" time="0"/>
-  <testcase classname="adt.heap.StudentMaxHeapTest" name="testInsert" time="0"/>
-  <testcase classname="adt.heap.StudentMaxHeapTest" name="testRemove" time="0"/>
+  <testcase classname="adt.heap.HeapTest" name="testBuildHeap" time="0.013">
+    <failure message="arrays first differed at element [0]; expected:&lt;1&gt; but was:&lt;8&gt;" type="arrays first differed at element [0]; expected">arrays first differed at element [0]; expected:&lt;1&gt; but was:&lt;8&gt;
+	at org.junit.internal.ComparisonCriteria.arrayEquals(ComparisonCriteria.java:55)
+	at org.junit.Assert.internalArrayEquals(Assert.java:532)
+	at org.junit.Assert.assertArrayEquals(Assert.java:283)
+	at org.junit.Assert.assertArrayEquals(Assert.java:298)
+	at adt.heap.HeapTest.testBuildHeap(HeapTest.java:19)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:564)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:564)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+Caused by: java.lang.AssertionError: expected:&lt;1&gt; but was:&lt;8&gt;
+	at org.junit.Assert.fail(Assert.java:88)
+	at org.junit.Assert.failNotEquals(Assert.java:834)
+	at org.junit.Assert.assertEquals(Assert.java:118)
+	at org.junit.Assert.assertEquals(Assert.java:144)
+	at org.junit.internal.ExactComparisonCriteria.assertElementsEqual(ExactComparisonCriteria.java:8)
+	at org.junit.internal.ComparisonCriteria.arrayEquals(ComparisonCriteria.java:53)
+	... 33 more
+</failure>
+    <system-out>[8, 5, 7, 4, 1, 6, 3, 2]
+</system-out>
+  </testcase>
 </testsuite>
