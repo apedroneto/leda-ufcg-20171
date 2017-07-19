@@ -2,7 +2,6 @@ package adt.bst.extended;
 
 import adt.bst.BSTImpl;
 import adt.bst.BSTNode;
-import util.Util;
 
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -19,67 +18,67 @@ import java.util.List;
  */
 public class SortComparatorBSTImpl<T extends Comparable<T>> extends BSTImpl<T> implements SortComparatorBST<T> {
 
-	private Comparator<T> comparator;
-	
-	public SortComparatorBSTImpl(Comparator<T> comparator) {
-		super();
-		this.comparator = comparator;
-	}
+   private Comparator<T> comparator;
 
-	private void cleanTree(BSTNode<T> node){
-		if(!node.isEmpty()){
-			cleanTree((BSTNode<T>) node.getLeft());
-			cleanTree((BSTNode<T>) node.getRight());
-			node.setData(null);
-		}
-	}
+   public SortComparatorBSTImpl(Comparator<T> comparator) {
+      super();
+      this.comparator = comparator;
+   }
 
-	@Override
-	public T[] sort(T[] array) {
-		T [] result = null;
-		if(array != null) {
-			cleanTree(root);
-			for (T element : array) {
-				insert(element);
-			}
-			result = order();
-		}
+   private void cleanTree(BSTNode<T> node) {
+      if (!node.isEmpty()) {
+         cleanTree((BSTNode<T>) node.getLeft());
+         cleanTree((BSTNode<T>) node.getRight());
+         node.setData(null);
+      }
+   }
 
-		return result;
-	}
+   @Override
+   public T[] sort(T[] array) {
+      T[] result = null;
+      if (array != null) {
+         cleanTree(root);
+         for (T element : array) {
+            insert(element);
+         }
+         result = order();
+      }
 
-	@Override
-	@SuppressWarnings("unchecked")
-	public T[] reverseOrder() {
-		return (T[])makeArrayFromList(reverseOrder(this.root));
-	}
+      return result;
+   }
 
-	private List<T> reverseOrder(BSTNode<T> node) {
-		List<T> result = new LinkedList<>();
-		if (!node.isEmpty()) {
-			if (node.isLeaf()) {
-				result.add(node.getData());
-			} else if (!node.isEmpty()) {
-				result.addAll(reverseOrder((BSTNode<T>) node.getRight()));
-				result.add(node.getData());
-				result.addAll(reverseOrder((BSTNode<T>) node.getLeft()));
-			}
-		}
+   @Override
+   @SuppressWarnings("unchecked")
+   public T[] reverseOrder() {
+      return (T[]) makeArrayFromList(reverseOrder(this.root));
+   }
 
-		return result;
-	}
+   private List<T> reverseOrder(BSTNode<T> node) {
+      List<T> result = new LinkedList<>();
+      if (!node.isEmpty()) {
+         if (node.isLeaf()) {
+            result.add(node.getData());
+         } else if (!node.isEmpty()) {
+            result.addAll(reverseOrder((BSTNode<T>) node.getRight()));
+            result.add(node.getData());
+            result.addAll(reverseOrder((BSTNode<T>) node.getLeft()));
+         }
+      }
 
-	@Override
-	protected int compareElements(T element1, T element2) {
-		return comparator.compare(element1, element2);
-	}
+      return result;
+   }
 
-	public Comparator<T> getComparator() {
-		return comparator;
-	}
+   @Override
+   protected int compareElements(T element1, T element2) {
+      return comparator.compare(element1, element2);
+   }
 
-	public void setComparator(Comparator<T> comparator) {
-		this.comparator = comparator;
-	}
-	
+   public Comparator<T> getComparator() {
+      return comparator;
+   }
+
+   public void setComparator(Comparator<T> comparator) {
+      this.comparator = comparator;
+   }
+
 }
