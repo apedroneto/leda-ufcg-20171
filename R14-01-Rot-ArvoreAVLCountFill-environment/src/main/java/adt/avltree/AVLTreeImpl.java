@@ -62,22 +62,23 @@ public class AVLTreeImpl<T extends Comparable<T>> extends BSTImpl<T> implements 
 	protected void rebalance(BSTNode<T> node) {
 		int balance = calculateBalance(node);
 		if (Math.abs(balance) > 1) {
+			BSTNode<T> aux = null;
 			if (leftLeftCase(node)) {
-				node = Util.rightRotation(node);
+				aux = Util.rightRotation(node);
 
 			} else if (rightRightCase(node)) {
-				node = Util.leftRotation(node);
+				aux = Util.leftRotation(node);
 
 			} else if (leftRightCase(node)) {
 				Util.leftRotation((BSTNode<T>) node.getLeft());
-				node = Util.rightRotation(node);
+				aux = Util.rightRotation(node);
 
 			} else if (rightLeftCase(node)) {
 				Util.rightRotation((BSTNode<T>) node.getRight());
-				node = Util.leftRotation(node);
+				aux = Util.leftRotation(node);
 			}
 			if(root.equals(node)){
-				root = node;
+				root = aux;
 			}
 		}
 	}

@@ -18,7 +18,6 @@ public class Util {
             pivot.setLeft(node);
             pivot.setParent(node.getParent());
             updateParentChild(node, pivot);
-            node.setParent(pivot);
         }
         return pivot;
     }
@@ -30,6 +29,7 @@ public class Util {
             } else {
                 node.getParent().setRight(pivot);
             }
+            node.setParent(pivot);
         }
     }
 
@@ -45,7 +45,6 @@ public class Util {
         pivot.setRight(node);
         pivot.setParent(node.getParent());
         updateParentChild(node, pivot);
-        node.setParent(pivot);
         return pivot;
     }
 
