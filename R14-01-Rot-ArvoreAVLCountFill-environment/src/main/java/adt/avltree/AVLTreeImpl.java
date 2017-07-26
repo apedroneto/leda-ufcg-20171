@@ -63,18 +63,21 @@ public class AVLTreeImpl<T extends Comparable<T>> extends BSTImpl<T> implements 
 		int balance = calculateBalance(node);
 		if (Math.abs(balance) > 1) {
 			if (leftLeftCase(node)) {
-				root = Util.rightRotation(node);
+				node = Util.rightRotation(node);
 
 			} else if (rightRightCase(node)) {
-				root = Util.leftRotation(node);
+				node = Util.leftRotation(node);
 
 			} else if (leftRightCase(node)) {
-				node.setLeft(Util.leftRotation((BSTNode<T>) node.getLeft()));
-				root = Util.rightRotation(node);
+				Util.leftRotation((BSTNode<T>) node.getLeft());
+				node = Util.rightRotation(node);
 
 			} else if (rightLeftCase(node)) {
-				node.setRight(Util.leftRotation((BSTNode<T>) node.getRight()));
-				root = Util.leftRotation(node);
+				Util.rightRotation((BSTNode<T>) node.getRight());
+				node = Util.leftRotation(node);
+			}
+			if(root.equals(node)){
+				root = node;
 			}
 		}
 	}
