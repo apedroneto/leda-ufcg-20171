@@ -1,7 +1,6 @@
 package adt.heap;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
 
 import util.Util;
@@ -70,7 +69,9 @@ public class HeapImpl<T extends Comparable<T>> implements Heap<T> {
     public T[] toArray() {
         @SuppressWarnings("unchecked")
         T[] resp = Util.makeArrayOfComparable(index + 1);
-        System.arraycopy(this.heap, 0, resp, 0, index + 1);
+        for (int i = 0; i <= index; i++) {
+            resp[i] = this.heap[i];
+        }
         return resp;
     }
 
@@ -126,37 +127,24 @@ public class HeapImpl<T extends Comparable<T>> implements Heap<T> {
 
     @Override
     public T extractRootElement() {
-        T result = null;
-        if (size() > 0) {
-            result = heap[0];
-            heap[0] = heap[index];
-            index--;
-            heapify(0);
+        if(size() > 0){
+
         }
-        return result;
+        return null;
     }
 
     @Override
     public T rootElement() {
-        T result = null;
-        if (size() > 0) {
-            result = heap[0];
-        }
-        return result;
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Not implemented yet!");
     }
 
     @Override
     public T[] heapsort(T[] array) {
-        T[] copy = null;
-        if (array != null) {
-            copy = Util.makeArrayOfComparable(array.length);
-            buildHeap(array);
-            for (int i = 0; i < array.length; i++) {
-                copy[i] = extractRootElement();
-            }
-            if (copy[array.length - 1].compareTo(copy[0]) < 0) {
-                Collections.reverse(Arrays.asList(copy));
-            }
+        T[] copy = Util.makeArrayOfComparable(array.length);
+        buildHeap(array);
+        for (int i = 0; i < array.length; i++) {
+            copy[i] = extractRootElement();
         }
         return copy;
     }
