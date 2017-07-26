@@ -211,7 +211,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 	}
 
 	protected void removeHasOneChild(BSTNode<T> node) {
-		if(node != root){
+		if(node.getParent() != null){
 			if(node.getParent().getLeft().equals(node)){
 				if(!node.getLeft().isEmpty()) {
 					node.getParent().setLeft(node.getLeft());
