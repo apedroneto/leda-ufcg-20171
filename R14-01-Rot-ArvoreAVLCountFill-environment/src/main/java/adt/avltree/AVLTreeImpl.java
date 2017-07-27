@@ -64,23 +64,36 @@ public class AVLTreeImpl<T extends Comparable<T>> extends BSTImpl<T> implements 
 		if (Math.abs(balance) > 1) {
 			BSTNode<T> aux = null;
 			if (leftLeftCase(node)) {
-				aux = Util.rightRotation(node);
-
+				aux = solveLeftLeft(node);
 			} else if (rightRightCase(node)) {
-				aux = Util.leftRotation(node);
-
+				aux = solveRightRight(node);
 			} else if (leftRightCase(node)) {
-				Util.leftRotation((BSTNode<T>) node.getLeft());
-				aux = Util.rightRotation(node);
-
+				aux = solveLeftRight(node);
 			} else if (rightLeftCase(node)) {
-				Util.rightRotation((BSTNode<T>) node.getRight());
-				aux = Util.leftRotation(node);
+				aux = solveRightLeft(node);
 			}
 			if(root.equals(node)){
 				root = aux;
 			}
 		}
+	}
+
+	protected BSTNode<T> solveRightLeft(BSTNode<T> node) {
+		Util.rightRotation((BSTNode<T>) node.getRight());
+		return Util.leftRotation(node);
+	}
+
+	protected BSTNode<T> solveLeftRight(BSTNode<T> node) {
+		Util.leftRotation((BSTNode<T>) node.getLeft());
+		return Util.rightRotation(node);
+	}
+
+	protected BSTNode<T> solveRightRight(BSTNode<T> node) {
+		return Util.leftRotation(node);
+	}
+
+	protected BSTNode<T> solveLeftLeft(BSTNode<T> node) {
+		return Util.rightRotation(node);
 	}
 
 	// AUXILIARY

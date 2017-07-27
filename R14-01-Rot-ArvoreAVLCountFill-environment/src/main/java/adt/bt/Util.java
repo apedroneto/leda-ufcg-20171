@@ -15,7 +15,10 @@ public class Util {
         if (!node.isEmpty()) {
             pivot = (BSTNode<T>) node.getRight();
             node.setRight(pivot.getLeft());
+            pivot.getLeft().setParent(node);
+
             pivot.setLeft(node);
+
             pivot.setParent(node.getParent());
             updateParentChild(node, pivot);
         }
@@ -29,8 +32,8 @@ public class Util {
             } else {
                 node.getParent().setRight(pivot);
             }
-            node.setParent(pivot);
         }
+        node.setParent(pivot);
     }
 
     /**
@@ -40,11 +43,17 @@ public class Util {
      * @return
      */
     public static <T extends Comparable<T>> BSTNode<T> rightRotation(BSTNode<T> node) {
-        BSTNode<T> pivot = (BSTNode<T>) node.getLeft();
-        node.setLeft(pivot.getRight());
-        pivot.setRight(node);
-        pivot.setParent(node.getParent());
-        updateParentChild(node, pivot);
+        BSTNode<T> pivot = null;
+        if (!node.isEmpty()) {
+            pivot = (BSTNode<T>) node.getLeft();
+            node.setLeft(pivot.getRight());
+            pivot.getRight().setParent(node);
+
+            pivot.setRight(node);
+
+            pivot.setParent(node.getParent());
+            updateParentChild(node, pivot);
+        }
         return pivot;
     }
 

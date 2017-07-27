@@ -24,7 +24,7 @@ public class BstTest {
 
     @Before
     public void setUp() {
-        tree = new BSTImpl<>();
+        tree = new AVLTreeImpl<>();
     }
 
     @Test
