@@ -1,6 +1,7 @@
 package adt.skipList;
 
-import java.lang.reflect.Array;
+import java.util.LinkedList;
+import java.util.List;
 
 public class SkipListImpl<T> implements SkipList<T> {
 
@@ -45,7 +46,7 @@ public class SkipListImpl<T> implements SkipList<T> {
             if (node.key == key) {
                 node.value = newValue;
             } else {
-                int level = randomLevel();
+                int level = randomLevel() + 1;
                 node = new SkipListNode<>(key, level, newValue);
                 for (int i = 0; i < level; i++) {
                     node.forward[i] = update[i].forward[i];
@@ -89,7 +90,7 @@ public class SkipListImpl<T> implements SkipList<T> {
     @Override
     public int height() {
         int level;
-        for(level = maxHeight - 1; root.forward[level] != null; level--);
+        for (level = maxHeight - 1; root.forward[level] != null; level--) ;
         return level;
     }
 
@@ -113,7 +114,7 @@ public class SkipListImpl<T> implements SkipList<T> {
     @Override
     public int size() {
         SkipListNode<T> node = root.forward[0];
-        int result = 0;
+        int result = -1;
         while (node != null) {
             node = node.forward[0];
             result++;
@@ -123,9 +124,16 @@ public class SkipListImpl<T> implements SkipList<T> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public SkipListNode<T>[] toArray() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Not implemented yet!");
+        SkipListNode<T> node = root;
+        List<SkipListNode> result = new LinkedList<>();
+        while (node != null) {
+            result.add(node);
+            node = node.forward[0];
+        }
+
+        return (SkipListNode<T>[]) result.toArray(new SkipListNode[size()]);
     }
 
 }
