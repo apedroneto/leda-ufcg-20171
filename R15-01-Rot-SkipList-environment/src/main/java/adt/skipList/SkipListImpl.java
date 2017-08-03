@@ -1,5 +1,7 @@
 package adt.skipList;
 
+import java.lang.reflect.Array;
+
 public class SkipListImpl<T> implements SkipList<T> {
 
     protected SkipListNode<T> root;
@@ -28,12 +30,49 @@ public class SkipListImpl<T> implements SkipList<T> {
         }
     }
 
-
     @Override
     public void insert(int key, T newValue, int height) {
-        SkipListNode<T>[] update = (SkipListNode<T>[]) new Object[maxHeight];
+        if (height < maxHeight) {
+            SkipListNode<T>[] update = getUpdateArray();
+            SkipListNode<T> node = root;
+            for (int i = maxHeight - 1; i >= 0; i--) {
+                while (node.forward[i].key < key) {
+                    node = node.forward[i];
+                }
+                update[i] = node;
+            }
+            node = node.forward[0];
+            if (node.key == key) {
+                node.value = newValue;
+            } else {
+                int level = randomLevel();
+                node = new SkipListNode<>(key, level, newValue);
+                for (int i = 0; i < level; i++) {
+                    node.forward[i] = update[i].forward[i];
+                    update[i].forward[i] = node;
+                }
+            }
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private SkipListNode<T>[] getUpdateArray() {
+        return new SkipListNode[maxHeight];
+    }
+
+    private int randomLevel() {
+        int level = 0;
+        while (Math.random() < PROBABILITY) {
+            level++;
+        }
+        return Math.min(level, maxHeight);
+    }
+
+    @Override
+    public void remove(int key) {
         SkipListNode<T> node = root;
-        for (int i = maxHeight - 1; maxHeight >= 0; i--) {
+        SkipListNode<T>[] update = getUpdateArray();
+        for (int i = maxHeight - 1; i >= 0; i++) {
             while (node.forward[i].key < key) {
                 node = node.forward[i];
             }
@@ -41,22 +80,17 @@ public class SkipListImpl<T> implements SkipList<T> {
         }
         node = node.forward[0];
         if (node.key == key) {
-            node.value = newValue;
-        } else {
-            //TODO
+            for (int i = 0; i < maxHeight && update[i].forward[i] == node; i++) {
+                update[i].forward[i] = node.forward[i];
+            }
         }
     }
 
     @Override
-    public void remove(int key) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Not implemented yet!");
-    }
-
-    @Override
     public int height() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Not implemented yet!");
+        int level;
+        for(level = maxHeight - 1; root.forward[level] != null; level--);
+        return level;
     }
 
     @Override
@@ -78,8 +112,14 @@ public class SkipListImpl<T> implements SkipList<T> {
 
     @Override
     public int size() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Not implemented yet!");
+        SkipListNode<T> node = root.forward[0];
+        int result = 0;
+        while (node != null) {
+            node = node.forward[0];
+            result++;
+        }
+
+        return result;
     }
 
     @Override
