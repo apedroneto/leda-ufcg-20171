@@ -144,8 +144,8 @@ public class RBTreeImpl<T extends Comparable<T>> extends BSTImpl<T>
                 result.add(node);
             } else if (!node.isEmpty()) {
                 result.add(node);
-                result.addAll(rbPreOrder((RBNode<T>) node.getLeft(), result));
-                result.addAll(rbPreOrder((RBNode<T>) node.getRight(), result));
+                rbPreOrder((RBNode<T>) node.getLeft(), result);
+                rbPreOrder((RBNode<T>) node.getRight(), result);
             }
         }
 
