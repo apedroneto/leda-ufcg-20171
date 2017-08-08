@@ -144,13 +144,14 @@ public class StudentTestRBTree {
 		myRB.insert(7);
 		myRB.insert(5);
 
+		assertTrue(myRB.verifyProperties());
+
 		int len = myRB.size();
 		RBNode<Integer>[] result = myRB.rbPreOrder();
 		for (int i = 0; i < len; i++) {
 			assertEquals(preOrder[i], result[i].getData());
 			assertEquals(preOrderColour[i], result[i].getColour());
 		}
-		assertTrue(myRB.verifyProperties());
 	}
 
 }
